@@ -1,25 +1,19 @@
 def binary_search(arr, x):
-    low = 0
-    high = len(arr) - 1
-    mid = 0
-    comparisons = 0
-
-    while low <= high:
-        comparisons += 1
-        mid = (high + low) // 2
-        if arr[mid] < x:
-            low = mid + 1
-        elif arr[mid] > x:
-            high = mid - 1
+    left, right = 0, len(arr) - 1
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] == x:
+            return mid
+        elif arr[mid] < x:
+            left = mid + 1
         else:
-            return mid, comparisons
-    return -1, comparisons
-arrays = [
-    ([5, 10, 15, 20, 25, 30, 35, 40, 45], 20, 4),
-    ([10, 20, 30, 40, 50, 60], 50, 5),
-]
+            right = mid - 1
+    return -1
 
-for arr, key, expected in arrays:
-    print(f"Array: {arr}, Search Key: {key}")
-    index, comparisons = binary_search(arr, key)
-    print(f"Expected Index: {expected}, Output Index: {index}, Comparisons: {comparisons}\n")
+arr = list(map(int, input("Enter elements of the array (sorted): ").split()))
+x = int(input("Enter the element to search: "))
+result = binary_search(arr, x)
+if result != -1:
+    print(f"Element found at index {result}")
+else:
+    print("Element not found")
